@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Concurrent Job Briefing Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    h1 {
+      text-align: center;
+      text-transform: uppercase;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+    th, td {
+      border: 1px solid #000;
+      padding: 4px;
+      vertical-align: top;
+    }
+    input[type="text"], textarea {
+      width: 100%;
+    }
+    .section-title {
+      font-weight: bold;
+      background: #ddd;
+      padding: 6px;
+      margin-top: 20px;
+    }
+    .checkbox-group label {
+      display: block;
+    }
+    canvas {
+      border: 1px solid #000;
+      width: 100%;
+      height: 100px;
+      background-color: #f9f9f9;
+    }
+    .signature-container {
+      position: relative;
+    }
+    .clear-btn {
+      display: block;
+      margin-top: 5px;
+      background-color: #ff4444;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      cursor: pointer;
+      font-size: 12px;
+    }
+    .clear-btn:hover {
+      background-color: #cc0000;
+    }
+    .export-btn {
+      display: block;
+      margin: 20px auto;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    .export-btn:hover {
+      background-color: #45a049;
+    }
+    /* Estilo para el logotipo */
+    .logo {
+      display: block;
+      margin: 0 auto 20px auto;
+      max-width: 300px; /* Ajusta el tamaño del logotipo */
+      width: 100%;
+      height: auto;
+    }
+  </style>
+</head>
+<body>
+  <div id="form-content">
+    <!-- Agregar el logotipo al inicio -->
+    <img src="concurrent-logo.png" alt="Concurrent Logo" class="logo">
+
+    <h1>Concurrent Group Pre Job Hazard Assessment (JHA)</h1>
+
+    <table>
+      <tr>
+        <td>Date: <input type="text"></td>
+        <td>Job #: <input type="text"></td>
+        <td>General Foreman: <input type="text"></td>
+      </tr>
+      <tr>
+        <td>Nearest Medical Facility: <input type="text"></td>
+        <td>Emergency Call: 911 or <input type="text"></td>
+        <td>Area: <input type="text"></td>
+      </tr>
+      <tr>
+        <td>Dispatch #: <input type="text"></td>
+        <td>Foreman (PIC): <input type="text"></td>
+        <td>Feeder(s): <input type="text"></td>
+      </tr>
+      <tr>
+        <td>RC(s): <input type="text"></td>
+        <td>Nearest Switch #: <input type="text"></td>
+        <td>Direction from nearest Switch: <input type="text"></td>
+      </tr>
+      <tr>
+        <td>Clearance #: <input type="text"></td>
+        <td>Switching Order #: <input type="text"></td>
+      </tr>
+      <tr>
+        <td>Primary Voltage: <input type="text"></td>
+        <td>Secondary Voltage: <input type="text"></td>
+      </tr>
+    </table>
+
+    <div class="section-title">Working Location Address</div>
+    <p>Address: <input type="text" id="address-input" placeholder="Start typing an address..."></p>
+
+    <div class="section-title">PPE</div>
+    <p>Did you inspect the PPE? <label><input type="checkbox"> Yes</label> <label><input type="checkbox"> No</label></p>
+    <p>List all PPE to be used: <input type="text"></p>
+
+    <div class="section-title">Description of Work</div>
+    <textarea rows="3"></textarea>
+
+    <div class="section-title">Focus Four and Special Hazard Awareness</div>
+    <!-- Aquí va la tabla completa de Fall, Struck By, Electrical y Crushed By como antes -->
+
+    <div class="section-title">Special Hazards</div>
+    <div class="checkbox-group">
+      <label>Are dangerous chemicals present? <input type="checkbox"> Yes <input type="checkbox"> No</label>
+      <label>Are there biological hazards present? <input type="checkbox"> Yes <input type="checkbox"> No</label>
+      <label>Are environmental controls needed? <input type="checkbox"> Yes <input type="checkbox"> No</label>
+      <label>Is there a risk of exposure to high temperatures? <input type="checkbox"> Yes <input type="checkbox"> No</label>
+      <label>Is FR clothing required? <input type="checkbox"> Yes <input type="checkbox"> No</label>
+      <label>Is ear protection required? <input type="checkbox"> Yes <input type="checkbox"> No</label>
+      <label><input type="checkbox"> Environmental hazards</label>
+      <label><input type="checkbox"> Risk of UV/Sun Exposure</label>
+      <label><input type="checkbox"> Gas hazard</label>
+      <label><input type="checkbox"> Atmospheric Hazard</label>
+      <label><input type="checkbox"> Dehydration</label>
+      <label><input type="checkbox"> Chemical hazards</label>
+      <label><input type="checkbox"> Silica Hazard (concrete dust)</label>
+      <label><input type="checkbox"> Other: <input type="text"></label>
+    </div>
+
+    <div class="section-title">Critical Work Procedures</div>
+    <table>
+      <tr>
+        <th>List all critical work procedures in order step by step</th>
+        <th>List all potential Hazards associated with the critical work procedures</th>
+        <th>List the Hazard control and mitigation plan associated with each identified Hazard</th>
+      </tr>
+      <tr>
+        <td><textarea rows="10"></textarea></td>
+        <td><textarea rows="10"></textarea></td>
+        <td><textarea rows="10"></textarea></td>
+      </tr>
+    </table>
+
+    <div class="section-title">Acknowledgements (Print & Sign)</div>
+    <table>
+      <tr>
+        <td>Foreman:<br><input type="text"><br>Signature:<br>
+          <div class="signature-container">
+            <canvas class="signature-canvas"></canvas>
+            <button class="clear-btn" onclick="clearCanvas(this)">Clear Signature</button>
+          </div>
+        </td>
+        <td>Line Worker:<br><input type="text"><br>Signature:<br>
+          <div class="signature-container">
+            <canvas class="signature-canvas"></canvas>
+            <button class="clear-btn" onclick="clearCanvas(this)">Clear Signature</button>
+          </div>
+        </td>
+        <td>Line Worker:<br><input type="text"><br>Signature:<br>
+          <div class="signature-container">
+            <canvas class="signature-canvas"></canvas>
+            <button class="clear-btn" onclick="clearCanvas(this)">Clear Signature</button>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>Observer:<br><input type="text"><br>Signature:<br>
+          <div class="signature-container">
+            <canvas class="signature-canvas"></canvas>
+            <button class="clear-btn" onclick="clearCanvas(this)">Clear Signature</button>
+          </div>
+        </td>
+        <td>General Foreman:<br><input type="text"><br>Signature:<br>
+          <div class="signature-container">
+            <canvas class="signature-canvas"></canvas>
+            <button class="clear-btn" onclick="clearCanvas(this)">Clear Signature</button>
+          </div>
+        </td>
+        <td>Designated Water Person:<br><input type="text"><br>Signature:<br>
+          <div class="signature-container">
+            <canvas class="signature-canvas"></canvas>
+            <button class="clear-btn" onclick="clearCanvas(this)">Clear Signature</button>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>Visitor:<br><input type="text"><br>Signature:<br>
+          <div class="signature-container">
+            <canvas class="signature-canvas"></canvas>
+            <button class="clear-btn" onclick="clearCanvas(this)">Clear Signature</button>
+          </div>
+        </td>
+        <td>Visitor:<br><input type="text"><br>Signature:<br>
+          <div class="signature-container">
+            <canvas class="signature-canvas"></canvas>
+            <button class="clear-btn" onclick="clearCanvas(this)">Clear Signature</button>
+          </div>
+        </td>
+        <td>Visitor:<br><input type="text"><br>Signature:<br>
+          <div class="signature-container">
+            <canvas class="signature-canvas"></canvas>
+            <button class="clear-btn" onclick="clearCanvas(this)">Clear Signature</button>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <button class="export-btn" onclick="exportToPDF()">Export to PDF</button>
+
+  <!-- Incluir las librerías necesarias -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <!-- Comentar temporalmente la API de Google Maps hasta que configures la clave API -->
+  <!-- <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places&callback=initAutocomplete" async defer></script> -->
+
+  <script>
+    // Comentar temporalmente la función de autocompletado
+    /*
+    let autocomplete;
+    function initAutocomplete() {
+      const addressInput = document.getElementById('address-input');
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            const userLocation = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            };
+            autocomplete = new google.maps.places.Autocomplete(addressInput, {
+              types: ['address'],
+              componentRestrictions: { country: 'us' },
+              fields: ['formatted_address'],
+              location: userLocation,
+              radius: 50000
+            });
+            autocomplete.addListener('place_changed', () => {
+              const place = autocomplete.getPlace();
+              if (place.formatted_address) {
+                addressInput.value = place.formatted_address;
+              }
+            });
+          },
+          (error) => {
+            console.error('Error al obtener la ubicación:', error);
+            autocomplete = new google.maps.places.Autocomplete(addressInput, {
+              types: ['address'],
+              componentRestrictions: { country: 'us' },
+              fields: ['formatted_address']
+            });
+            autocomplete.addListener('place_changed', () => {
+              const place = autocomplete.getPlace();
+              if (place.formatted_address) {
+                addressInput.value = place.formatted_address;
+              }
+            });
+          }
+        );
+      } else {
+        console.error('Geolocalización no soportada por el navegador');
+        autocomplete = new google.maps.places.Autocomplete(addressInput, {
+          types: ['address'],
+          componentRestrictions: { country: 'us' },
+          fields: ['formatted_address']
+        });
+        autocomplete.addListener('place_changed', () => {
+          const place = autocomplete.getPlace();
+          if (place.formatted_address) {
+            addressInput.value = place.formatted_address;
+          }
+        });
+      }
+    }
+    */
+
+    // Obtener todos los canvas de firma
+    const canvases = document.querySelectorAll('.signature-canvas');
+    canvases.forEach(canvas => {
+      const ctx = canvas.getContext('2d');
+      let isDrawing = false;
+      let lastX = 0;
+      let lastY = 0;
+
+      // Configurar el estilo del trazo
+      ctx.strokeStyle = '#000';
+      ctx.lineWidth = 2;
+      ctx.lineCap = 'round';
+
+      // Ajustar el tamaño del canvas según el dispositivo
+      canvas.width = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
+
+      // Funciones para obtener las coordenadas del evento
+      function getCoordinates(e) {
+        let x, y;
+        if (e.type.includes('touch')) {
+          x = e.touches[0].clientX - canvas.getBoundingClientRect().left;
+          y = e.touches[0].clientY - canvas.getBoundingClientRect().top;
+        } else {
+          x = e.offsetX;
+          y = e.offsetY;
+        }
+        return { x, y };
+      }
+
+      // Iniciar el dibujo
+      function startDrawing(e) {
+        isDrawing = true;
+        const { x, y } = getCoordinates(e);
+        [lastX, lastY] = [x, y];
+        e.preventDefault();
+      }
+
+      // Dibujar mientras se mueve
+      function draw(e) {
+        if (!isDrawing) return;
+        const { x, y } = getCoordinates(e);
+        ctx.beginPath();
+        ctx.moveTo(lastX, lastY);
+        ctx.lineTo(x, y);
+        ctx.stroke();
+        [lastX, lastY] = [x, y];
+        e.preventDefault();
+      }
+
+      // Detener el dibujo
+      function stopDrawing() {
+        isDrawing = false;
+      }
+
+      // Eventos para mouse
+      canvas.addEventListener('mousedown', startDrawing);
+      canvas.addEventListener('mousemove', draw);
+      canvas.addEventListener('mouseup', stopDrawing);
+      canvas.addEventListener('mouseout', stopDrawing);
+
+      // Eventos para dispositivos táctiles
+      canvas.addEventListener('touchstart', startDrawing);
+      canvas.addEventListener('touchmove', draw);
+      canvas.addEventListener('touchend', stopDrawing);
+      canvas.addEventListener('touchcancel', stopDrawing);
+    });
+
+    // Función para limpiar el canvas
+    function clearCanvas(button) {
+      const canvas = button.previousElementSibling;
+      const ctx = canvas.getContext('2d');
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+
+    // Función para exportar a PDF
+    function exportToPDF() {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF('p', 'mm', 'a4');
+      const formContent = document.getElementById('form-content');
+
+      // Usar html2canvas para capturar el contenido del formulario
+      html2canvas(formContent, { scale: 2 }).then(canvas => {
+        const imgData = canvas.toDataURL('image/png');
+        const imgWidth = 210; // Ancho de una página A4 en mm
+        const pageHeight = 297; // Alto de una página A4 en mm
+        const imgHeight = (canvas.height * imgWidth) / canvas.width;
+        let heightLeft = imgHeight;
+        let position = 0;
+
+        // Agregar la primera página
+        doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+
+        // Agregar páginas adicionales si el contenido es más largo que una página
+        while (heightLeft > 0) {
+          position = heightLeft - imgHeight;
+          doc.addPage();
+          doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+          heightLeft -= pageHeight;
+        }
+
+        // Descargar el PDF
+        doc.save('Job_Hazard_Assessment.pdf');
+      });
+    }
+  </script>
+</body>
+</html>
